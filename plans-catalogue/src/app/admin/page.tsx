@@ -7,10 +7,11 @@ import PlanActions from "./plan-actions";
 export default async function AdminDashboard() {
   let plansList: Plan[] = [];
   try {
-    const env = process.env as unknown as CloudflareEnv;
-    const db = getDb(env.DB);
+    const db = getDb();
     plansList = await getPlans(db);
-  } catch {}
+  } catch {
+    plansList = [];
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

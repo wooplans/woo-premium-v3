@@ -4,11 +4,8 @@ import { getPlans, createPlan } from "@/lib/db/queries";
 import { v4 as uuidv4 } from "uuid";
 import { PlanType, PlanFormData } from "@/types/plan";
 
-export const runtime = "edge";
-
 export async function GET(request: NextRequest) {
-  const env = process.env as unknown as CloudflareEnv;
-  const db = getDb(env.DB);
+  const db = getDb();
 
   const { searchParams } = new URL(request.url);
   const type = searchParams.get("type") as PlanType | null;
@@ -23,8 +20,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const env = process.env as unknown as CloudflareEnv;
-  const db = getDb(env.DB);
+  const db = getDb();
 
   const body: PlanFormData = await request.json();
   const id = uuidv4();

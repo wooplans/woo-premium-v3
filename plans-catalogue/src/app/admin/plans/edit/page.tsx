@@ -11,8 +11,7 @@ export default async function EditPlanPage({
   const { id } = await searchParams;
   let plan = null;
   try {
-    const env = process.env as unknown as CloudflareEnv;
-    const db = getDb(env.DB);
+    const db = getDb();
     plan = await getPlanById(db, id);
   } catch {}
 

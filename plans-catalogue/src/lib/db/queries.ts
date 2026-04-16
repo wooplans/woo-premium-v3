@@ -1,10 +1,11 @@
 import { plans, Plan } from "@/lib/db/schema";
 import { PlanType } from "@/types/plan";
 import { SQL, eq, and } from "drizzle-orm";
+import { getDb } from "./index";
 
-type DbClient = ReturnType<typeof import("@/lib/db")["getDb"]>;
+type DbClient = ReturnType<typeof getDb>;
 
-export async function getPlans(db: DbClient, options?: { type?: PlanType; publishedOnly?: boolean }) {
+export async function getPlans(db: DbClient, options?: { type?: PlanType; publishedOnly?: boolean }): Promise<Plan[]> {
   const conditions: SQL[] = [];
 
   if (options?.type) {
@@ -15,9 +16,9 @@ export async function getPlans(db: DbClient, options?: { type?: PlanType; publis
   }
 
   if (conditions.length > 0) {
-    return db.select().from(plans).where(and(...conditions)).orderBy(plans.createdAt);
+    return await db.select().from(plans).where(and(...conditions)).orderBy(plans.createdAt);
   }
-  return db.select().from(plans).orderBy(plans.createdAt);
+  return await db.select().from(plans).orderBy(plans.createdAt);
 }
 
 export async function getPlanById(db: DbClient, id: string): Promise<Plan | null> {

@@ -13,8 +13,7 @@ export default async function PlanDetailPage({
   const { id } = await params;
   let plan = null;
   try {
-    const env = process.env as unknown as CloudflareEnv;
-    const db = getDb(env.DB);
+    const db = getDb();
     plan = await getPlanById(db, id);
   } catch {}
 

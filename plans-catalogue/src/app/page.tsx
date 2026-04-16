@@ -16,8 +16,7 @@ export default async function HomePage({
 
   let plansList: Plan[] = [];
   try {
-    const env = process.env as unknown as CloudflareEnv;
-    const db = getDb(env.DB);
+    const db = getDb();
     plansList = await getPlans(db, {
       type: type,
       publishedOnly: true,
