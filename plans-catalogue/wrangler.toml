@@ -5,7 +5,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "plans-catalogue-db"
-database_id = "TODO_REPLACE_WITH_YOUR_DATABASE_ID"
+database_id = "56170a78-267f-480d-b68a-e1471d5fe3e4"
 
 [[r2_buckets]]
 binding = "BUCKET"
